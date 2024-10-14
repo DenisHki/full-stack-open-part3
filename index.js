@@ -24,6 +24,13 @@ let persons = [
   },
 ];
 
+// display the time  and how many entries are in the phonebook
+app.get("/info", (req, res) => {
+  const entries = persons.length;
+  const timeNow = new Date();
+  res.send(`Phonebook has info for ${entries} people <br/> ${timeNow}`);
+});
+
 // get all persons
 app.get("/api/persons", (req, res) => {
   res.json(persons);
