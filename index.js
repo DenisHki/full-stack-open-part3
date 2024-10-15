@@ -51,16 +51,38 @@ app.get("/api/persons/:id", (req, res) => {
   }
 });
 
-// create a new person
-app.post("/api/persons/", (req, res) => {
-  const person = req.body;
-
+// generate id
+const generateId = () => {
   const maxId =
     persons.length > 0 ? Math.max(...persons.map((p) => parseInt(p.id))) : 0;
-  person.id = String(maxId + 1);
+
+  return String(maxId + 1);
+};
+
+// create a new person
+app.post("/api/persons/", (req, res) => {
+  const body = req.body;
+
+  if (!body.name || !body.number) {
+    return res.status(400).json({
+      error: "content missing",
+    });
+  }
+
+  const nameExists = persons.some((p) => p.name === body.name);
+  if (nameExists) {
+    return res.status(400).json({
+      error: "name must be unique",
+    });
+  }
+
+  const person = {
+    id: generateId(),
+    name: body.name,
+    number: body.number,
+  };
 
   persons = persons.concat(person);
-  console.log(person);
   res.status(201).json(person);
 });
 
