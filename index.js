@@ -37,6 +37,8 @@ app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
 
+app.use(express.static('dist'))
+
 // display the time  and how many entries are in the phonebook
 app.get("/info", (req, res) => {
   const entries = persons.length;
