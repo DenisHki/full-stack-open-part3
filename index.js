@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const app = express();
 
@@ -26,6 +27,7 @@ let persons = [
   },
 ];
 
+app.use(cors());
 morgan.token("body", (request) => JSON.stringify(request.body));
 
 app.use(express.json());
@@ -70,6 +72,7 @@ const generateId = () => {
 
 // create a new person
 app.post("/api/persons/", (req, res) => {
+  console.log("Request body:", req.body);
   const body = req.body;
 
   if (!body.name || !body.number) {
