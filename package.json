@@ -16,6 +16,8 @@
     "be_part3": "file:",
     "cors": "^2.8.5",
     "express": "^4.21.1",
+    "mongodb": "^6.9.0",
+    "mongoose": "^8.7.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
