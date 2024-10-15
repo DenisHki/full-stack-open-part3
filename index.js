@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 
+app.use(express.json());
+
 let persons = [
   {
     id: "1",
@@ -49,12 +51,25 @@ app.get("/api/persons/:id", (req, res) => {
   }
 });
 
+// create a new person
+app.post("/api/persons/", (req, res) => {
+  const person = req.body;
+
+  const maxId =
+    persons.length > 0 ? Math.max(...persons.map((p) => parseInt(p.id))) : 0;
+  person.id = String(maxId + 1);
+
+  persons = persons.concat(person);
+  console.log(person);
+  res.status(201).json(person);
+});
+
 // delete person by id
 app.delete("/api/persons/:id", (req, res) => {
   const id = req.params.id;
-  persons = persons.filter(person => person.id !== id)
-  res.status(204).end()
-})
+  persons = persons.filter((person) => person.id !== id);
+  res.status(204).end();
+});
 
 const PORT = 3001;
 app.listen(PORT, () => {
