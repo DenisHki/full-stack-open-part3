@@ -1,18 +1,44 @@
-require("dotenv").config();
 const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
-const mongoose = require("mongoose");
 const app = express();
+require("dotenv").config();
+
 const Person = require("./models/person");
-app.use(cors());
-mongoose.set("strictQuery", false);
-morgan.token("body", (request) => JSON.stringify(request.body));
 
 app.use(express.static("dist"));
+
+const requestLogger = (req, res, next) => {
+  console.log("Method:", req.method);
+  console.log("Path:  ", req.path);
+  console.log("Body:  ", req.body);
+  console.log("---");
+  next();
+};
+
+const errorHandler = (error, req, res, next) => {
+  console.error(error.message);
+
+  if (error.name === "CastError") {
+    return res.status(400).send({ error: "malformatted id" });
+  }
+  next(error);
+};
+
+const cors = require("cors");
+
+app.use(cors());
 app.use(express.json());
-//app.use(requestLogger)
+app.use(requestLogger);
+
+const unknownEndpoint = (req, res) => {
+  res.status(404).send({ error: "unknown endpoint" });
+};
+
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+mongoose.set("strictQuery", false);
+morgan.token("body", (request) => JSON.stringify(request.body));
 app.use(morgan("tiny"));
+
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms :body")
 );
@@ -102,19 +128,7 @@ app.put("/api/persons/:id", (req, res, next) => {
     .catch((error) => next(error));
 });
 
-const unknownEndpoint = (req, res) => {
-  res.status(404).send({ error: "unknown endpoint" });
-};
 app.use(unknownEndpoint);
-
-const errorHandler = (error, req, res, next) => {
-  console.error(error.message);
-
-  if (error.name === "CastError") {
-    return res.status(400).send({ error: "malformatted id" });
-  }
-  next(error);
-};
 app.use(errorHandler);
 
 const PORT = process.env.PORT;
