@@ -32,14 +32,13 @@ This repository contains the backend code that powers the Phonebook application.
 ---
 
 ## 📂 Project Structure
-.
-├── index.js
-├── package.json
-├── .env
-├── .gitignore
-├── build/        # Production-ready frontend (copied from Part 2)
-└── models/
-└── person.js
+
+- **index.js** – main server file  
+- **package.json** – project metadata and dependencies  
+- **.env** – environment variables  
+- **build/** – production frontend build  
+- **models/person.js** – Mongoose model  
+
 
 ---
 
