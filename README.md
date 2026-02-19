@@ -33,12 +33,17 @@ This repository contains the backend code that powers the Phonebook application.
 
 ## 📂 Project Structure
 
-- **index.js** – main server file  
-- **package.json** – project metadata and dependencies  
-- **.env** – environment variables  
-- **build/** – production frontend build  
-- **models/person.js** – Mongoose model  
-
+- **dist/** – compiled production files  
+- **uibuild/** – production-ready frontend (copied from Part 2)  
+- **models/** – Mongoose model definitions  
+- **requests/** – REST API test requests  
+- **index.js** – Express server entry point  
+- **mongo.js** – script for interacting with MongoDB  
+- **eslint.config.mjs** – ESLint configuration  
+- **package.json** – project metadata & dependencies  
+- **package-lock.json**  
+- **.gitignore**  
+- **README.md**
 
 ---
 
