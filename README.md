@@ -40,3 +40,69 @@ This repository contains the backend code that powers the Phonebook application.
 ├── build/        # Production-ready frontend (copied from Part 2)
 └── models/
 └── person.js
+
+---
+
+## 🚀 Running the Project Locally
+
+### 1. Install dependencies
+npm install
+
+
+### 2. Set up environment variables
+
+Create a `.env` file:
+MONGODB_URI=your_mongodb_connection_string
+PORT=3001
+
+
+### 3. Start the server
+npm start
+
+The server will run at:
+http://localhost:3001
+
+
+---
+
+## 🔌 API Endpoints
+
+### Get a single person
+GET /api/persons/:id
+
+### Get all persons
+GET /api/persons
+
+### Add a new person
+POST /api/persons
+
+### Delete a person
+DELETE /api/persons/:id
+
+
+---
+
+## 🧰 Technologies Used
+
+- Node.js  
+- Express  
+- MongoDB  
+- Mongoose  
+- dotenv  
+- Render (deployment)  
+
+---
+
+## 📝 Notes
+
+- This backend is designed to work with the Phonebook frontend from **Part 2**.  
+- The `build/` folder contains the production build of the frontend.  
+- The project is deployed on Render, and the API is publicly accessible.
+
+---
+
+## 📜 Course
+
+This project is part of the **Full Stack Open** course by the University of Helsinki.
+
+
